@@ -1,0 +1,162 @@
+* {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h2, h3 {
+    font-family: "EB Garamond", serif;
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 86px;
+}
+
+h2 {
+    font-size: 46px;
+}
+
+:root {
+  /* barvy */
+  --bg-color: #23282d;
+  --bg-color-light: white;
+  --text-color: white;
+  --text-color-light: #23282d;
+}
+
+.container {
+    width: 100%;
+    padding: 4rem 0;
+}
+
+[class*="wrapper"] {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section {
+    width: 100%;
+    width: auto;
+    padding: 200px 0;
+    
+}
+
+header {
+    background-color: var(--bg-color);
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 70px; /* ← přidáno */
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.068);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+}
+
+/* Navigační odkazy */
+.main-nav {
+    display: flex;
+    height: 70px; /* ← přidáno */
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent; /* fixní výška, neviditelná */
+    transition: background 0.3s, border-bottom 0.3s;
+}
+
+.main-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: underline;
+    /*border-bottom: 1px solid rgba(255, 255, 255, 0.8);*/
+}
+
+.main-nav a.active {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    /*text-decoration: underline;*/
+    font-weight: 500;
+}
+
+/* Hamburger menu ikona – zatím skrytá */
+.menu-icon {
+    display: none; /* později použiješ pro mobilní verzi */
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.home-wrapper p {
+    margin-bottom: 5px; /* nebo 16px, podle potřeby */
+}
+
+
+.footer {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+/* tlačítko pro posun na začátek stránky */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.068);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.199);
+    z-index: 1000;
+    display: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    padding-bottom: 4px;
+}
+ 
+/* tlačítko pro posun při najetí */
+#scrollToTopBtn:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
