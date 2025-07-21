@@ -1,0 +1,85 @@
+* {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    font-family: "EB Garamond", serif;
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 86px;
+}
+
+h2 {
+    font-size: 46px;
+}
+
+:root {
+  /* barvy */
+  --bg-color: #23282d;
+  --text-color: white;
+}
+
+.container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--bg-color);
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 70px; /* ← přidáno */
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.068);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+}
+
+/* Navigační odkazy */
+.main-nav {
+    display: flex;
+    height: 70px; /* ← přidáno */
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid transparent;
+    transition: background 0.3s, border-bottom 0.3s;
+}
+
+.main-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    /*border-radius: 5px;*/
+}
+
+/* Hamburger menu ikona – zatím skrytá */
+.menu-icon {
+    display: none; /* později použiješ pro mobilní verzi */
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
