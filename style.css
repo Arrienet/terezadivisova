@@ -21,6 +21,7 @@ h2, h3 {
 
 h1 {
     font-size: 86px;
+    padding-bottom: 20px;
 }
 
 h2 {
@@ -49,6 +50,7 @@ section {
     width: 100%;
     width: auto;
     padding: 200px 0;
+    height: 100vh;
     
 }
 
@@ -68,6 +70,7 @@ header {
     height: 70px; /* ← přidáno */
     padding: 0 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.068);
+    background-color: var(--bg-color);
 }
 
 .logo {
