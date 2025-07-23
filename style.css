@@ -39,25 +39,25 @@ h2 {
 
 .container {
     width: 100%;
-    padding: 4rem 0;
+    margin-top: ;
 }
 
 [class*="wrapper"] {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
 section {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  padding: 200px 0;
+  /*padding: 200px 0;*/
   overflow: hidden;
 }
 
 header {
     background-color: var(--bg-color);
     width: 100%;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
 }
@@ -77,11 +77,36 @@ header {
     background-color: var(--bg-color);
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: 600;
-    color: white;
-    text-decoration: none;
+.logo-combo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  height: 50px; /* uprav dle potřeby */
+  width: auto;
+  padding: 0 10px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  padding-bottom: 2px;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #aaa;
+  padding-left: 4px; /* ← tohle vytvoří optické zarovnání */
+/*text-align: center;*/
 }
 
 /* Navigační odkazy */
@@ -136,6 +161,30 @@ header {
   transform: translateX(100%);
 }
 
+.home {
+  position: relative;
+  z-index: 0; /* důležité */
+  overflow: hidden;
+  padding-top: 25vh;
+  /*margin-top: 10px;*/
+}
+
+.home::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("Icons/high-angle-shot-beautiful-forest-with-lot-green-trees-enveloped-fog-new-zealand.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.3; /* ← skutečná průhlednost */
+  z-index: 0;
+  pointer-events: none;
+}
+
+
 .home-wrapper p {
     margin-bottom: 5px; /* nebo 16px, podle potřeby */
 }
@@ -144,6 +193,8 @@ header {
   opacity: 1;
   transition: opacity 0.5s ease;
   pointer-events: auto;
+  position: relative;
+  z-index: 1; /* aby byl text nad pozadím */
 }
 
 .slide-away .home-wrapper, .slide-away .dropdown {
@@ -189,12 +240,18 @@ header {
 
 .dropdown {
     position: absolute;
-    bottom: 40px; /* vzdálenost od spodku stránky */
+    bottom: 100px; /* vzdálenost od spodku stránky */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    
+}
+
+.dropdown p {
+    padding-bottom: 6px;
 }
 
 .dropdown img {
@@ -207,6 +264,66 @@ header {
 .dropdown img:hover {
     transform: translateY(5px); /* malá animace dolů */
 }
+
+/* Section - Projekty */
+
+.projekty {
+    padding-top: 20vh;
+}
+
+
+
+/* Section - O mne */
+
+.o-mne {
+    padding: 60px 0;
+    background-color: white;
+    color: var(--text-color-light);
+    display: flex;
+    justify-content: center;
+}
+
+.o-mne-wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.about-text {
+    flex: 1;
+    padding-right: 60px;
+    min-width: 0;
+}
+
+.about-foto {
+    width: 300px;
+  height: auto;
+  background-color: #eee; /* jen prozatímní pozadí */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.o-mne h2 {
+    padding-bottom: 40px;
+    font-weight: 500;
+}
+
+.o-mne p {
+  padding-bottom: 12px;
+  line-height: 1.6;
+}
+
+/*.o-mne p:first-of-type {
+  padding-bottom: 8px;
+}
+*/
+
+
+
 
 
 
@@ -236,7 +353,7 @@ header {
     right: 30px;
     width: 60px;
     height: 60px;
-    background-color: rgba(255, 255, 255, 0.068);
+    background-color: rgba(59, 59, 59, 0.89);
     color: white;
     border: none;
     border-radius: 50%;
