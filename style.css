@@ -295,7 +295,7 @@ header {
     flex: 1;
     padding-right: 60px;
     /*min-width: 0;*/
-    width: 50%;
+    max-width: 50%;
 }
 
 .about-foto {
