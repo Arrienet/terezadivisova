@@ -292,7 +292,7 @@ header {
 }
 
 .about-text {
-    flex: 1;
+    /*flex: 1;*/
     padding-right: 60px;
     /*min-width: 0;*/
     max-width: 50%;
