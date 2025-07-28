@@ -1,30 +1,40 @@
-// Aktivace odkazu v menu a smooth scroll
+
+
+///// Interaktivní menu (aktivní sekce) /////
+
 const navLinks = document.querySelectorAll('.main-nav a');
 
 navLinks.forEach(link => {
-  link.addEventListener('click', function (e) {
-    e.preventDefault(); // zabrání klasickému skoku (a URL změně)
+    link.addEventListener('click', function () {
+        navLinks.forEach(link => link.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
 
-    // Získat cílový element ze href
-    const targetId = this.getAttribute('href').substring(1); // odstraní #
-    const targetSection = document.getElementById(targetId);
 
-    // Přejít na sekci smooth způsobem
-    if (targetSection) {
-      targetSection.scrollIntoView({
-        behavior: 'smooth'
-      });
+window.addEventListener('scroll', function () {
+    let currentSection = '';
+
+  // Viditelné aktivní sekce
+  document.querySelectorAll('section').forEach(section => {
+    const sectionTop = section.offsetTop;
+    if (window.scrollY >= sectionTop - 100) {
+      currentSection = section.getAttribute('id');
     }
+  });
 
-    // Přepnout aktivní třídu
-    navLinks.forEach(l => l.classList.remove('active'));
-    this.classList.add('active');
+  // Přidání a odebrání třídy active k sekcím
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href').substring(1) === currentSection) {
+        link.classList.add('active');
+    }
   });
 });
 
 
 
-// Slide Home Section
+///// Slide Home Section /////
 document.addEventListener("DOMContentLoaded", () => {
   const goToProjects = document.getElementById("goToProjects");
   const slideContainer = document.querySelector(".slide-container");
@@ -99,7 +109,81 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Tlačítko scroll nahoru
+
+
+
+
+
+///// FORMULÁŘ - validace a odeslání s hláškou /////
+
+/*document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contactForm");
+  const emailInput = document.getElementById("email");
+  const emailError = document.getElementById("emailError");
+  const successMessage = document.getElementById("successMessage");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // zabrání přesměrování
+
+    const emailValue = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Validace e-mailu
+    if (!emailRegex.test(emailValue)) {
+      emailError.textContent = "Zadejte platný e-mail ve formátu text@domena.cz";
+      return;
+    } else {
+      emailError.textContent = "";
+    }
+
+    // Vyprázdnění formuláře a zobrazení hlášky
+    form.reset();
+    successMessage.textContent = "Děkuji za Vaši zprávu!";
+    successMessage.style.display = "block";
+
+    // Hláška zmizí po 5 sekundách
+    setTimeout(() => {
+      successMessage.style.display = "none";
+    }, 5000);
+  });
+});*/
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contactForm");
+  const emailInput = document.getElementById("email");
+  const emailError = document.getElementById("emailError");
+  const successMessage = document.getElementById("successMessage");
+
+  form.addEventListener("submit", function (e) {
+    const emailValue = emailInput.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Validace e-mailu
+    if (!emailRegex.test(emailValue)) {
+      e.preventDefault();
+      emailError.textContent = "Zadejte platný e-mail ve formátu text@domena.cz";
+      return;
+    } else {
+      emailError.textContent = "";
+    }
+
+    // Po odeslání (on submit success)
+    form.addEventListener("formsubmit", function () {
+      successMessage.textContent = "Děkuji za Vaši zprávu!";
+      successMessage.style.display = "block";
+
+      // vyprázdnění formuláře
+      form.reset();
+
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 5000);
+    });
+  });
+});
+
+
+///// Tlačítko scroll nahoru /////
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
 window.addEventListener("scroll", () => {
@@ -116,3 +200,5 @@ scrollToTopBtn.addEventListener("click", () => {
     behavior: "smooth"
   });
 });
+
+

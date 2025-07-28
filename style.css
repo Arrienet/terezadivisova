@@ -330,6 +330,80 @@ header {
 
 
 
+/* SEKCE - KONTAKT */
+
+
+
+/* FORMULÁŘ - KONTAKTUJTE MNĚ */
+
+.form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: white;
+}
+
+.form-wrapper h2 {
+  padding-bottom: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+input,
+textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: "Inter", sans-serif;
+}
+
+button[type="submit"] {
+  padding: 12px;
+  background-color: white;
+  color: #23282d;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #7d9288;
+}
+
+.success-msg {
+  color: #a8ffbe; /* jemně zelená, nenápadná */
+  font-weight: 500;
+  margin-top: 10px;
+  display: none;
+}
+
+.error-msg {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+
+
 .footer {
     width: 100%;
     height: 100px;
