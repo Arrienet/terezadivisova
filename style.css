@@ -268,8 +268,106 @@ header {
 /* Section - Projekty */
 
 .projekty {
-    padding-top: 20vh;
+    padding-top: 15vh;
 }
+
+/*----------------------------------*/
+
+.projekty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.projekt-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  height: 250px; /* <-- přidáno */
+}
+
+.projekt-card:hover {
+  transform: scale(1.03);
+}
+
+.projekt-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* <-- přidáno */
+  display: block;
+}
+
+.projekt-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(29, 29, 29, 0.918);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.projekt-card:hover .projekt-overlay {
+  opacity: 1;
+}
+
+.projekt-links {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.projekt-links a {
+  background-color: white;
+  color: #23282d;
+  padding: 6px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.projekt-links a:hover {
+  background-color: #ddd;
+}
+
+/*----------------------------------*/
+
+.projekt-popis {
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+  max-width: 90%;
+}
+
+.projekt-technologie {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.projekt-technologie li {
+  background: rgba(255, 255, 255, 0.185);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/*----------------------------------*/
 
 
 
@@ -283,6 +381,7 @@ header {
     justify-content: center;
     height: auto;
     width: 100%;
+    position: relative;
 }
 
 .o-mne-wrapper {
@@ -293,22 +392,68 @@ header {
 
 .about-text {
     /*flex: 1;*/
-    padding-right: 60px;
+    padding-right: 50px;
     /*min-width: 0;*/
     max-width: 60%;
 }
 
 .about-foto {
-    width: 300px;
-  height: auto;
-  background-color: #eee; /* jen prozatímní pozadí */
+  position: relative;
+  width: 400px;      /* fixní šířka */
+  height: 600px;     /* pevná výška podle místa */
+  background-image: url(Images/1650051445449.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #666;
   margin-top: 50px;
   margin-bottom: 50px;
+  overflow: hidden;
+  border-radius: 5px;
 }
+
+.about-foto::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(75, 95, 89);
+  transition: transform 0.5s ease; /* plynulý posun */
+  transform: translateX(var(--translateX, 0));
+  pointer-events: none; /* aby nepřekážel klikům */
+  z-index: 2;
+}
+
+.dekorace-ctverec-1 {
+  position: absolute;
+  bottom: -80px;    /* vzdálenost od spodku sekce */
+  right: 220px;    /* přetéká doprava mimo sekci */
+  width: 340px;
+  height: 320px;
+  background-color: rgb(75, 95, 89);
+  opacity: 0.4;
+  z-index: 0;      /* bude pod fotkou */
+  border-radius: 12px; /* volitelné zakulacení */
+  transform: rotate(-3deg); /* pro efekt, taky volitelné */
+}
+
+.dekorace-ctverec-2 {
+  position: absolute;
+  bottom: 80px;    /* vzdálenost od spodku sekce */
+  right: 400px;    /* přetéká doprava mimo sekci */
+  width: 360px;
+  height: 320px;
+  background-color: rgb(75, 95, 89);
+  opacity: 0.2;
+  z-index: 0;      /* bude pod fotkou */
+  border-radius: 12px; /* volitelné zakulacení */
+  transform: rotate(5deg); /* pro efekt, taky volitelné */
+}
+
 
 .o-mne h2 {
     padding-bottom: 40px;
@@ -320,19 +465,62 @@ header {
   line-height: 1.6;
 }
 
-/*.o-mne p:first-of-type {
-  padding-bottom: 8px;
-}
-*/
-
-
-
 
 
 
 /* SEKCE - KONTAKT */
 
 
+.kontakt {
+  position: relative;
+  z-index: 0;
+}
+
+
+.dekorace-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* pod form-wrapperem */
+  pointer-events: none; /* aby dekorace neblokovaly kliky */
+}
+
+.dekorace-ctverec-3,
+.dekorace-ctverec-4,
+.dekorace-ctverec-5 {
+  position: absolute;
+  background-color: rgb(75, 95, 89);
+  border-radius: 12px;
+}
+
+.dekorace-ctverec-3 {
+  bottom: 540px;
+  right: 820px;
+  width: 340px;
+  height: 320px;
+  opacity: 0.1;
+  transform: rotate(-12deg);
+}
+
+.dekorace-ctverec-4 {
+  bottom: 320px;
+  right: -620px;
+  width: 360px;
+  height: 320px;
+  opacity: 0.05;
+  transform: rotate(15deg);
+}
+
+.dekorace-ctverec-5 {
+  bottom: 250px;
+  right: 720px;
+  width: 360px;
+  height: 320px;
+  opacity: 0.05;
+  transform: rotate(5deg);
+}
 
 /* FORMULÁŘ - KONTAKTUJTE MNĚ */
 
@@ -341,6 +529,8 @@ header {
   margin: 0 auto;
   padding: 40px 20px;
   color: white;
+  position: relative; /* zajistí, že z-index zabere */
+  z-index: 2;
 }
 
 .form-wrapper h2 {
@@ -368,6 +558,7 @@ input,
 textarea {
   padding: 10px;
   font-size: 16px;
+  
   border: 1px solid #ccc;
   border-radius: 4px;
   font-family: "Inter", sans-serif;

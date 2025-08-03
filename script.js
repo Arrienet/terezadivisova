@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Po dokončení fade-out skryj element
     setTimeout(() => {
       homeWrapper.style.display = "none";
-    }, 500); // odpovídá CSS transition-duration
+    }, 500);
 
     // Přejdi na sekci
     setTimeout(() => {
@@ -88,20 +88,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const homeHeight = homeSection.offsetHeight;
     const triggerDown = homeHeight * 0.05;
 
-    // Slide pryč při scrollu dolů
-    if (homeTop <= -triggerDown && !hasSlid) {
+    const scrollThreshold = 400; // hranice, kdy se začne slide vracet
+
+    // Slide pryč při scrollu dolů – ALE jen pokud jsme pod touto hranicí A ještě neslidovali
+    if (window.scrollY > scrollThreshold && !hasSlid) {
       slideAwayAndScroll();
     }
 
-    // Slide zpět při scrollu nahoru
-    if (homeTop > 50 && hasSlid) {
+    // Slide zpět při scrollu nahoru – když jsme nahoře pod touto hranicí A slide pryč je aktivní
+    if (window.scrollY <= scrollThreshold && hasSlid) {
       slideContainer.classList.remove("slide-away");
       hasSlid = false;
 
-      // Nejprve zobraz wrapper
+      // Zobraz wrapper
       homeWrapper.style.display = "block";
 
-      // Pak zruš fade-out třídu (fade-in přes CSS)
+      // Fade-in
       setTimeout(() => {
         homeWrapper.classList.remove("hidden-fade");
       }, 10);
@@ -202,3 +204,66 @@ scrollToTopBtn.addEventListener("click", () => {
 });
 
 
+
+
+///// PŘEKRYTÍ FOTKY /////
+window.addEventListener("scroll", () => {
+  const aboutFoto = document.querySelector(".about-foto");
+  const section = document.querySelector(".o-mne");
+
+  if (!aboutFoto || !section) return;
+
+  const rect = section.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  // Kolik sekce je vidět odspodu okna
+  const visibleHeight = Math.min(rect.height, Math.max(0, windowHeight - rect.top));
+  let visiblePercent = visibleHeight / rect.height;
+
+  if (visiblePercent > 1) visiblePercent = 1;
+  if (visiblePercent < 0) visiblePercent = 0;
+
+  const threshold = 0.3;  // 30% viditelnost sekce
+
+  // Přepínáme překryv jen jednou, jakmile viditelnost překročí threshold
+  if (visiblePercent >= threshold) {
+    // posuň překryv úplně doprava
+    aboutFoto.style.setProperty("--translateX", `100%`);
+
+    // Odstraň listener, protože už nechceme, aby se vracel zpět
+    window.removeEventListener("scroll", arguments.callee);
+  } else {
+    // překryv je na začátku (pokud chceš, aby byl znovu překrytý při scrollu nahoru, jinak tento blok můžeš vynechat)
+    aboutFoto.style.setProperty("--translateX", `0%`);
+  }
+});
+
+
+
+
+
+
+
+function toggleInfo(button) {
+  const card = button.closest('.projekt-card');
+  const infoBlock = card.nextElementSibling; // ⬅️ vezmeme až ten blok POD kartou
+
+  if (!infoBlock.classList.contains('projekt-info')) return;
+
+  const isVisible = infoBlock.classList.contains('show');
+
+  // Skryjeme všechny ostatní otevřené bloky
+  document.querySelectorAll('.projekt-info.show').forEach(el => {
+    el.classList.remove('show');
+    el.previousElementSibling.querySelector('.toggle-info-btn').textContent = 'Více info';
+  });
+
+  // Přepneme aktuální
+  if (!isVisible) {
+    infoBlock.classList.add('show');
+    button.textContent = 'Méně info';
+  } else {
+    infoBlock.classList.remove('show');
+    button.textContent = 'Více info';
+  }
+}
