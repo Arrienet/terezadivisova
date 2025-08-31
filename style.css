@@ -303,13 +303,25 @@ header {
 .projekt-card {
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
+  /*border-radius: 10px;*/
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: transform 0.3s ease;
   width: 45%;
   height: 300px;
   min-width: 280px;
+  
+  /* Styl rohů */
+  /*border-top-left-radius: 0;
+  border-top-right-radius: 120px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 120px;*/
+  
+  /*clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);*/
+  /*clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 80%, 90% 100%, 0 100%);*/
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 0% 100%);
+
+  
 }
 
 .projekt-card:hover {
@@ -338,6 +350,7 @@ header {
   align-items: center;
   opacity: 0;
   transition: opacity 0.4s ease;
+
 }
 
 .projekt-card:hover .projekt-overlay {
@@ -505,8 +518,69 @@ header {
 
 .zkusenosti {
   padding: 120px 0;
+  background-color: rgba(75, 95, 89, 0.116);
 }
 
+.zkusenosti div {
+  margin-bottom: 80px;
+}
+
+.zkusenosti h2 {
+  margin-bottom: 40px;
+}
+
+/* Timeline sekce */
+.timeline {
+  position: relative;
+  margin-left: 40px; /* odsazení od levého kraje */
+  padding-left: 20px;
+  border-left: 3px solid var(--text-color); /* čára timeline */
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -32px; /* zarovnání s čárou */
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--bg-color);
+  border: 3px solid var(--text-color);
+  border-radius: 50%;
+}
+
+.timeline-content {
+  background: rgba(255, 255, 255, 0.05); /* jemný rámeček */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+  color: var(--text-color);
+  max-width: 500px; /* aby to drželo vlevo */
+}
+
+.timeline-content .date {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+/* Certifikát box */
+.certifikaty {
+  margin-top: 80px; /* odstup od timeline */
+}
+
+.certifikat-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+}
 
 
 /* SEKCE - KONTAKT */
