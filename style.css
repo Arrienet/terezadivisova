@@ -39,7 +39,6 @@ h2 {
 
 .container {
     width: 100%;
-    margin-top: ;
 }
 
 [class*="wrapper"] {
@@ -50,7 +49,6 @@ h2 {
 section {
   width: 100%;
   height: auto;
-  /*padding: 0 120px;*/
   overflow: hidden;
 }
 
@@ -71,7 +69,7 @@ header {
     left: 0;
     z-index: 999;
     width: 100%;
-    height: 70px; /* ← přidáno */
+    height: 70px;
     padding: 0 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.068);
     background-color: var(--bg-color);
@@ -84,7 +82,7 @@ header {
 }
 
 .icon {
-  height: 50px; /* uprav dle potřeby */
+  height: 50px;
   width: auto;
   padding: 0 10px;
 }
@@ -105,14 +103,13 @@ header {
 .subtitle {
   font-size: 12px;
   color: #aaa;
-  padding-left: 4px; /* ← tohle vytvoří optické zarovnání */
-/*text-align: center;*/
+  padding-left: 4px;
 }
 
 /* Navigační odkazy */
 .main-nav {
     display: flex;
-    height: 70px; /* ← přidáno */
+    height: 70px;
 }
 
 .main-nav a {
@@ -122,52 +119,35 @@ header {
     height: 100%;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid transparent; /* fixní výška, neviditelná */
+    border-bottom: 2px solid transparent;
     transition: background 0.3s, border-bottom 0.3s;
 }
 
 .main-nav a:hover {
     background-color: rgba(255, 255, 255, 0.1);
     text-decoration: underline;
-    /*border-bottom: 1px solid rgba(255, 255, 255, 0.8);*/
 }
 
 .main-nav a.active {
     border-bottom: 1px solid rgba(255, 255, 255, 0.8);
-    /*text-decoration: underline;*/
     font-weight: 500;
 }
 
-/* Hamburger menu ikona – zatím skrytá */
+/* Hamburger menu ikona */
 .menu-icon {
-    display: none; /* později použiješ pro mobilní verzi */
+    display: none;
     color: white;
     font-size: 24px;
     cursor: pointer;
 }
 
-/* Slide sekce s animací */
-/*.slide-container {
-    position: relative;
-    overflow: hidden;
-    height: 100vh;
-}*/
-
-.slide-container {
-  transition: transform 1.1s ease-in-out; /* byla 1.2s → pomalejší slide */
-}
-
-.slide-container.slide-away {
-  transform: translateX(100%);
-}
-
+/* HOME sekce */
 .home {
   position: relative;
-  z-index: 0; /* důležité */
+  z-index: 0;
   overflow: hidden;
   padding-top: 25vh;
   height: 100vh;
-  /*margin-top: 10px;*/
 }
 
 .home::before {
@@ -180,33 +160,18 @@ header {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.3; /* ← skutečná průhlednost */
+  opacity: 0.3;
   z-index: 0;
   pointer-events: none;
 }
 
-
 .home-wrapper p {
-    margin-bottom: 5px; /* nebo 16px, podle potřeby */
+    margin-bottom: 5px;
 }
 
 .home-wrapper, .dropdown {
-  opacity: 1;
-  transition: opacity 0.5s ease;
-  pointer-events: auto;
   position: relative;
-  z-index: 1; /* aby byl text nad pozadím */
-}
-
-.slide-away .home-wrapper, .slide-away .dropdown {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.hidden-fade {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
+  z-index: 1;
 }
 
 /* Kontejner h1 */
@@ -232,23 +197,22 @@ header {
 
 /* Hover efekt */
 .portfolio-heading:hover .portfolio-text {
-    border-color: rgba(255, 255, 255, 0.8); /* jemné podtržení */
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
 .portfolio-heading:hover .portfolio-arrow {
-    transform: translateX(6px); /* šipka se posune doprava */
+    transform: translateX(6px);
 }
 
 .dropdown {
     position: absolute;
-    bottom: 100px; /* vzdálenost od spodku stránky */
+    bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    
 }
 
 .dropdown p {
@@ -258,14 +222,13 @@ header {
 .dropdown img {
     width: 50px;
     height: auto;
-    cursor: pointer; /* ← To je to nejdůležitější! */
+    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
 .dropdown img:hover {
-    transform: translateY(5px); /* malá animace dolů */
+    transform: translateY(5px);
 }
-
 
 /* Section - Projekty */
 .projekty {
@@ -289,39 +252,26 @@ header {
   text-align: justify;
 }
 
-/* --- Nový layout pro projekty: obrázek vlevo, text vpravo --- */
+/* --- Layout pro projekty --- */
 .projekt-row {
   display: flex;
   align-items: center;
   gap: 80px;
   margin-top: 80px;
   margin-bottom: 80px;
-  flex-wrap: wrap; /* pro lepší responzivitu */
+  flex-wrap: wrap;
 }
 
-/* Obrázek vlevo - zachová původní efekty */
 .projekt-card {
   position: relative;
   overflow: hidden;
-  /*border-radius: 10px;*/
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: transform 0.3s ease;
   width: 45%;
   height: 300px;
   min-width: 280px;
-  
-  /* Styl rohů */
-  /*border-top-left-radius: 0;
-  border-top-right-radius: 120px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 120px;*/
-  
-  /*clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);*/
-  /*clip-path: polygon(0 0, 90% 0, 100% 20%, 100% 80%, 90% 100%, 0 100%);*/
   clip-path: polygon(0 0, 100% 0, 100% 95%, 0% 100%);
-
-  
 }
 
 .projekt-card:hover {
@@ -335,7 +285,6 @@ header {
   display: block;
 }
 
-/* Overlay zůstává */
 .projekt-overlay {
   position: absolute;
   top: 0;
@@ -350,14 +299,12 @@ header {
   align-items: center;
   opacity: 0;
   transition: opacity 0.4s ease;
-
 }
 
 .projekt-card:hover .projekt-overlay {
   opacity: 1;
 }
 
-/* Textový popis napravo */
 .projekt-info {
   flex: 1;
   min-width: 250px;
@@ -373,7 +320,6 @@ header {
   margin-bottom: 10px;
 }
 
-/* Původní styly pro odkazy, technologie, popis uvnitř overlay */
 .projekt-links {
   display: flex;
   gap: 20px;
@@ -521,7 +467,11 @@ header {
   background-color: rgba(75, 95, 89, 0.116);
 }
 
-.zkusenosti div {
+/*.zkusenosti div {
+  margin-bottom: 80px;
+}*/
+
+.zkusenosti > .zkusenosti-wrapper > div:not(.dovednosti) {
   margin-bottom: 80px;
 }
 
@@ -569,6 +519,38 @@ header {
   margin-bottom: 6px;
 }
 
+/* Odkazy ve zkušenostech – základní vzhled */
+.timeline-content a {
+  color: var(--text-color);     /* bílé písmo */
+  text-decoration: none;        /* žádné podtržení */
+  position: relative;
+  font-size: inherit;
+  font-weight: inherit;
+  transition: color 0.3s ease;  /* plynulá změna barvy textu */
+}
+
+/* Efekt: podtržení se animuje zleva doprava */
+.timeline-content a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px; /* pod textem */
+  width: 0;
+  height: 1px;
+  background-color: rgba(236, 235, 136, 0.596); /* tvoje zelená */
+  transition: width 0.3s ease;
+}
+
+/* Hover: text se přebarví a podtržení se roztáhne */
+.timeline-content a:hover {
+  color:/* rgb(218, 216, 108); *//* přebarvení textu */
+}
+
+.timeline-content a:hover::after {
+  width: 100%;
+}
+
+
 /* Certifikát box */
 .certifikaty {
   margin-top: 80px; /* odstup od timeline */
@@ -582,6 +564,51 @@ header {
   max-width: 600px;
 }
 
+/* Dovednosti */
+.dovednosti-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; /* menší mezera */
+}
+
+.skill-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  flex: 1 1 45%; /* vždy maximálně 2 karty vedle sebe */
+  max-width: 500px; /* aby se nerozšířily příliš */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.skill-card h3 {
+  margin-bottom: 20px;
+  color: var(--text-color);
+  font-size: 1.2em;
+  font-family: 'Inter', sans-serif; /* jednoduché moderní písmo */
+  font-weight: 400; /* tučný */
+}
+
+.skill-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skill-card ul li {
+  background: rgba(75, 95, 89, 0.2);
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: var(--text-color);
+  display: inline-block;
+  margin-right: 5px;
+}
 
 /* SEKCE - KONTAKT */
 
@@ -589,6 +616,7 @@ header {
 .kontakt {
   position: relative;
   z-index: 0;
+  padding: 120px 0;
 }
 
 
@@ -640,9 +668,9 @@ header {
 /* FORMULÁŘ - KONTAKTUJTE MNĚ */
 
 .form-wrapper {
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px 40px;
   color: white;
   position: relative; /* zajistí, že z-index zabere */
   z-index: 2;
@@ -681,7 +709,7 @@ textarea {
 
 button[type="submit"] {
   padding: 12px;
-  background-color: white;
+  background-color: #7d9288;
   color: #23282d;
   border: none;
   border-radius: 4px;
@@ -692,7 +720,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #7d9288;
+  background-color: #62746a;
 }
 
 .success-msg {

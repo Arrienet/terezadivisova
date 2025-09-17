@@ -34,85 +34,90 @@ window.addEventListener('scroll', function () {
 
 
 
-///// Slide Home Section /////
-document.addEventListener("DOMContentLoaded", () => {
+///// Slide Home Section //////
+/*document.addEventListener("DOMContentLoaded", () => {
   const goToProjects = document.getElementById("goToProjects");
-  const slideContainer = document.querySelector(".slide-container");
-  const homeSection = document.getElementById("home");
-  const homeWrapper = document.querySelector(".home-wrapper");
   const projektySection = document.getElementById("projekty");
   const downArrow = document.querySelector(".dropdown img");
 
-  let hasSlid = false;
-  let isManualSlide = false;
+  let isScrolling = false;
+  let lastScrollY = window.scrollY;
 
-  function slideAwayAndScroll() {
-    isManualSlide = true;
-    slideContainer.classList.add("slide-away");
-    hasSlid = true;
+  function scrollToProjects() {
+    if (isScrolling) return;
+    isScrolling = true;
 
-    // Přidat fade-out třídu
-    homeWrapper.classList.add("hidden-fade");
+    projektySection.scrollIntoView({ behavior: "smooth" });
 
-    // Po dokončení fade-out skryj element
+    // Po krátké době reset flagu, aby šlo znovu spustit
     setTimeout(() => {
-      homeWrapper.style.display = "none";
-    }, 500);
-
-    // Přejdi na sekci
-    setTimeout(() => {
-      projektySection.scrollIntoView({ behavior: "smooth" });
-    }, 200);
-
-    // Reset flagu
-    setTimeout(() => {
-      isManualSlide = false;
-    }, 500);
+      isScrolling = false;
+    }, 900); // délka animace ≈ čas scrollIntoView
   }
 
-  // Kliknutí na "Portfolio"
-  if (goToProjects) {
-    goToProjects.addEventListener("click", slideAwayAndScroll);
-  }
+  // Klik na "Portfolio"
+  if (goToProjects) goToProjects.addEventListener("click", scrollToProjects);
 
-  // Kliknutí na šipku dolů
-  if (downArrow) {
-    downArrow.addEventListener("click", slideAwayAndScroll);
-  }
+  // Klik na šipku dolů
+  if (downArrow) downArrow.addEventListener("click", scrollToProjects);
 
-  // Scroll listener – návrat zpět
+  // Scroll listener
   window.addEventListener("scroll", () => {
-    if (isManualSlide) return;
+    const currentY = window.scrollY;
+    const scrollingDown = currentY > lastScrollY;
+    lastScrollY = currentY;
 
-    const homeTop = homeSection.getBoundingClientRect().top;
-    const homeHeight = homeSection.offsetHeight;
-    const triggerDown = homeHeight * 0.05;
+    const threshold = 140; // malý posun pro spuštění
 
-    const scrollThreshold = 400; // hranice, kdy se začne slide vracet
-
-    // Slide pryč při scrollu dolů – ALE jen pokud jsme pod touto hranicí A ještě neslidovali
-    if (window.scrollY > scrollThreshold && !hasSlid) {
-      slideAwayAndScroll();
-    }
-
-    // Slide zpět při scrollu nahoru – když jsme nahoře pod touto hranicí A slide pryč je aktivní
-    if (window.scrollY <= scrollThreshold && hasSlid) {
-      slideContainer.classList.remove("slide-away");
-      hasSlid = false;
-
-      // Zobraz wrapper
-      homeWrapper.style.display = "block";
-
-      // Fade-in
-      setTimeout(() => {
-        homeWrapper.classList.remove("hidden-fade");
-      }, 10);
+    if (scrollingDown && currentY > threshold) {
+      scrollToProjects();
     }
   });
+
+  // Přerušení animace uživatelem - scroll, touch
+  window.addEventListener("wheel", () => { isScrolling = false; });
+  window.addEventListener("touchstart", () => { isScrolling = false; });
 });
+*/
 
+///// Slide Home Section /////
+document.addEventListener("DOMContentLoaded", () => {
+  const goToProjects = document.getElementById("goToProjects");
+  const projektySection = document.getElementById("projekty");
+  const downArrow = document.querySelector(".dropdown img");
 
+  let lastScrollY = window.scrollY;
 
+  // Funkce pro jemný scroll dolů na projekty
+  function scrollToProjects() {
+    projektySection.scrollIntoView({ behavior: "smooth" });
+  }
+
+  // Klik na "Portfolio"
+  if (goToProjects) goToProjects.addEventListener("click", scrollToProjects);
+
+  // Klik na šipku dolů
+  if (downArrow) downArrow.addEventListener("click", scrollToProjects);
+
+  // Scroll listener
+  window.addEventListener("scroll", () => {
+    const currentY = window.scrollY;
+    const scrollingDown = currentY > lastScrollY;
+    lastScrollY = currentY;
+
+    const threshold = 140; // Malý posun pro spuštění
+
+    // Spustí se jen pokud jsme na HOME a scrollujeme dolů
+    if (scrollingDown && currentY > threshold && currentY < projektySection.offsetTop - 10) {
+      scrollToProjects();
+    }
+  });
+
+  // Přerušení plynulého scrollu uživatelem
+  // Pokud uživatel začne scrollovat nebo touchovat, scrollToProjects se nepřekáží
+  window.addEventListener("wheel", () => {}); // uživatel může scrollovat kdykoliv
+  window.addEventListener("touchstart", () => {}); // uživatel může touchovat kdykoliv
+});
 
 
 
@@ -182,6 +187,21 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 5000);
     });
   });
+});
+
+//////////////////////////////////////////////////////////////////////
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // zabrání klasickému submitu
+
+    const name = encodeURIComponent(document.getElementById("name").value);
+    const email = encodeURIComponent(document.getElementById("email").value);
+    const phone = encodeURIComponent(document.getElementById("phone").value);
+    const message = encodeURIComponent(document.getElementById("message").value);
+
+    const body = `Jméno: ${name}%0AEmail: ${email}%0ATelefon: ${phone}%0A%0A${message}`;
+    const mailtoLink = `mailto:divis.tereza@gmail.com?subject=Zpráva z webu&body=${body}`;
+
+    window.location.href = mailtoLink;
 });
 
 
