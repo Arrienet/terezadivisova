@@ -521,7 +521,7 @@ header {
 
 /* Odkazy ve zkušenostech – základní vzhled */
 .timeline-content a {
-  color: var(--text-color);     /* bílé písmo */
+  color: rgba(184, 161, 88, 0.986);     /* bílé písmo */
   text-decoration: none;        /* žádné podtržení */
   position: relative;
   font-size: inherit;
@@ -588,7 +588,7 @@ header {
 
 .skill-card h3 {
   margin-bottom: 20px;
-  color: var(--text-color);
+  color: rgba(184, 161, 88, 0.986)/*var(--text-color)*/;
   font-size: 1.2em;
   font-family: 'Inter', sans-serif; /* jednoduché moderní písmo */
   font-weight: 400; /* tučný */
@@ -616,7 +616,7 @@ header {
 .kontakt {
   position: relative;
   z-index: 0;
-  padding: 120px 0;
+  padding: 80px 0;
 }
 
 
@@ -668,9 +668,9 @@ header {
 /* FORMULÁŘ - KONTAKTUJTE MNĚ */
 
 .form-wrapper {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
-  padding: 40px 40px;
+  padding: 20px 40px;
   color: white;
   position: relative; /* zajistí, že z-index zabere */
   z-index: 2;
@@ -709,10 +709,11 @@ textarea {
 
 button[type="submit"] {
   padding: 12px;
-  background-color: #7d9288;
+  background-color: #718a7e;
   color: #23282d;
   border: none;
   border-radius: 4px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -720,7 +721,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #62746a;
+  background-color: rgba(184, 161, 88, 0.986);
 }
 
 .success-msg {
@@ -739,17 +740,55 @@ button[type="submit"]:hover {
 
 
 .footer {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
+  width: 100%;
+  padding: 30px 20px;
+  background: rgba(75, 95, 89, 0.15); /* jemná šedo-zelená */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  text-align: center;
 }
 
-.footer p {
-    padding-bottom: 20px;
+.footer-links {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: var(--text-color);
+  font-size: 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: rgba(184, 161, 88, 0.986); /* LinkedIn modrá (můžeš změnit na svoji zelenou) */
+}
+
+.footer-links i {
+  font-size: 18px;
+}
+
+.footer-bottom {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+.footer-bottom a {
+  color: #aaa;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.footer-bottom a:hover {
+  color: var(--text-color);
 }
 
 
