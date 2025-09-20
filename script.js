@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });*/
 
-/*document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("contactForm");
   const emailInput = document.getElementById("email");
   const emailError = document.getElementById("emailError");
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 5000);
     });
   });
-});*/
+});
 
 //////////////////////////////////////////////////////////////////////
 document.getElementById("contactForm").addEventListener("submit", function(e) {
