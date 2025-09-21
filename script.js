@@ -1,6 +1,4 @@
-
-
-///// Interaktivní menu (aktivní sekce) /////
+/* ----- INTERAKTIVNÍ MENU (aktivní sekce) ----- */
 
 const navLinks = document.querySelectorAll('.main-nav a');
 
@@ -34,53 +32,82 @@ window.addEventListener('scroll', function () {
 
 
 
-///// Slide Home Section //////
-/*document.addEventListener("DOMContentLoaded", () => {
-  const goToProjects = document.getElementById("goToProjects");
-  const projektySection = document.getElementById("projekty");
-  const downArrow = document.querySelector(".dropdown img");
+/* ----- RESPONZIVNÍ MENU PRO TELEFONY ----- */
+document.addEventListener("DOMContentLoaded", () => {
+  const menuIcon = document.querySelector(".menu-icon");
+  const icon = menuIcon.querySelector("i"); // najdeme ikonku uvnitř
+  const mainNav = document.querySelector(".main-nav");
+  const navLinks = document.querySelectorAll(".main-nav a");
 
-  let isScrolling = false;
-  let lastScrollY = window.scrollY;
+  // Otevření / zavření menu
+  menuIcon.addEventListener("click", () => {
+    mainNav.classList.toggle("active");
+    menuIcon.classList.toggle("active");
 
-  function scrollToProjects() {
-    if (isScrolling) return;
-    isScrolling = true;
-
-    projektySection.scrollIntoView({ behavior: "smooth" });
-
-    // Po krátké době reset flagu, aby šlo znovu spustit
-    setTimeout(() => {
-      isScrolling = false;
-    }, 900); // délka animace ≈ čas scrollIntoView
-  }
-
-  // Klik na "Portfolio"
-  if (goToProjects) goToProjects.addEventListener("click", scrollToProjects);
-
-  // Klik na šipku dolů
-  if (downArrow) downArrow.addEventListener("click", scrollToProjects);
-
-  // Scroll listener
-  window.addEventListener("scroll", () => {
-    const currentY = window.scrollY;
-    const scrollingDown = currentY > lastScrollY;
-    lastScrollY = currentY;
-
-    const threshold = 140; // malý posun pro spuštění
-
-    if (scrollingDown && currentY > threshold) {
-      scrollToProjects();
-    }
+    // Přepnutí tříd místo přepisování HTML
+    icon.classList.toggle("fa-bars-staggered");
+    icon.classList.toggle("fa-times");
   });
 
-  // Přerušení animace uživatelem - scroll, touch
-  window.addEventListener("wheel", () => { isScrolling = false; });
-  window.addEventListener("touchstart", () => { isScrolling = false; });
-});
-*/
+  // Zavření menu při kliknutí na odkaz
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      mainNav.classList.remove("active");
+      menuIcon.classList.remove("active");
 
-///// Slide Home Section /////
+      // vrátíme hamburger
+      icon.classList.add("fa-bars-staggered");
+      icon.classList.remove("fa-times");
+    });
+  });
+});
+
+
+
+/* ----- PORTFOLIO H1 NAJETÍ PŘI NAČTENÍ STRÁNKY ----- */
+window.addEventListener("load", () => {
+  const portfolioHeading = document.querySelector(".portfolio-heading");
+  portfolioHeading.classList.add("show");
+});
+
+
+
+/* ----- FADE IN TEXT PROJEKTY + O MĚ ----- */
+document.addEventListener("DOMContentLoaded", () => {
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+
+  function animateOnScroll(selector) {
+    const elements = document.querySelectorAll(selector);
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("show");
+          }, index * 200);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    elements.forEach(el => {
+      el.classList.add("fade-up");
+      observer.observe(el);
+    });
+  }
+
+  // Spuštění pro projekty a about-me
+  animateOnScroll(".project-info > *");
+  animateOnScroll(".about-text > *");
+});
+
+
+
+/* ----- SLIDE DOWN ZE SEKCE HOME NA PROJEKTY ----- */
 document.addEventListener("DOMContentLoaded", () => {
   const goToProjects = document.getElementById("goToProjects");
   const projektySection = document.getElementById("projekty");
@@ -105,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const scrollingDown = currentY > lastScrollY;
     lastScrollY = currentY;
 
-    const threshold = 140; // Malý posun pro spuštění
+    const threshold = 140; // Kdy se spustí
 
     // Spustí se jen pokud jsme na HOME a scrollujeme dolů
     if (scrollingDown && currentY > threshold && currentY < projektySection.offsetTop - 10) {
@@ -114,47 +141,42 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Přerušení plynulého scrollu uživatelem
-  // Pokud uživatel začne scrollovat nebo touchovat, scrollToProjects se nepřekáží
-  window.addEventListener("wheel", () => {}); // uživatel může scrollovat kdykoliv
-  window.addEventListener("touchstart", () => {}); // uživatel může touchovat kdykoliv
+  window.addEventListener("wheel", () => {}); // scroll kdykoliv
+  window.addEventListener("touchstart", () => {}); // touch kdykoliv
 });
 
 
 
-///// FORMULÁŘ - validace a odeslání s hláškou /////
+/* ----- ODKRYTÍ FOTOGRAFIE V SEKCI O MĚ ----- */
+window.addEventListener("scroll", () => {
+  const aboutFoto = document.querySelector(".about-foto");
+  const section = document.querySelector(".about-me");
 
-/*document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("contactForm");
-  const emailInput = document.getElementById("email");
-  const emailError = document.getElementById("emailError");
-  const successMessage = document.getElementById("successMessage");
+  if (!aboutFoto || !section) return;
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // zabrání přesměrování
+  // --- desktop ---
+  if (window.innerWidth < 768) return; // breakpoint podle media query
 
-    const emailValue = emailInput.value.trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const rect = section.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
 
-    // Validace e-mailu
-    if (!emailRegex.test(emailValue)) {
-      emailError.textContent = "Zadejte platný e-mail ve formátu text@domena.cz";
-      return;
-    } else {
-      emailError.textContent = "";
-    }
+  const visibleHeight = Math.min(rect.height, Math.max(0, windowHeight - rect.top));
+  let visiblePercent = visibleHeight / rect.height;
 
-    // Vyprázdnění formuláře a zobrazení hlášky
-    form.reset();
-    successMessage.textContent = "Děkuji za Vaši zprávu!";
-    successMessage.style.display = "block";
+  visiblePercent = Math.min(Math.max(visiblePercent, 0), 1);
 
-    // Hláška zmizí po 5 sekundách
-    setTimeout(() => {
-      successMessage.style.display = "none";
-    }, 5000);
-  });
-});*/
+  const threshold = 0.3;
 
+  if (visiblePercent >= threshold) {
+    aboutFoto.style.setProperty("--translateX", `100%`);
+    window.removeEventListener("scroll", arguments.callee);
+  } else {
+    aboutFoto.style.setProperty("--translateX", `0%`);
+  }
+});
+
+
+/* ----- VALIDACE A NASTAVENÍ KONTAKTNÍHO FORMULÁŘE + HLÁŠKA ----- */
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("contactForm");
   const emailInput = document.getElementById("email");
@@ -189,7 +211,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//////////////////////////////////////////////////////////////////////
+
+
+/* ----- ODESLÁNÍ EMAILU PŘES KONTAKTNÍ FORMULÁŘ ----- */
 document.getElementById("contactForm").addEventListener("submit", function(e) {
     e.preventDefault(); // zabrání klasickému submitu
 
@@ -205,7 +229,8 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
 });
 
 
-///// Tlačítko scroll nahoru /////
+
+/* ----- TLAČÍTKO CROLL NA ZAČÁTEK STRÁNKY ----- */
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
 window.addEventListener("scroll", () => {
@@ -225,65 +250,3 @@ scrollToTopBtn.addEventListener("click", () => {
 
 
 
-
-///// PŘEKRYTÍ FOTKY /////
-window.addEventListener("scroll", () => {
-  const aboutFoto = document.querySelector(".about-foto");
-  const section = document.querySelector(".o-mne");
-
-  if (!aboutFoto || !section) return;
-
-  const rect = section.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
-
-  // Kolik sekce je vidět odspodu okna
-  const visibleHeight = Math.min(rect.height, Math.max(0, windowHeight - rect.top));
-  let visiblePercent = visibleHeight / rect.height;
-
-  if (visiblePercent > 1) visiblePercent = 1;
-  if (visiblePercent < 0) visiblePercent = 0;
-
-  const threshold = 0.3;  // 30% viditelnost sekce
-
-  // Přepínáme překryv jen jednou, jakmile viditelnost překročí threshold
-  if (visiblePercent >= threshold) {
-    // posuň překryv úplně doprava
-    aboutFoto.style.setProperty("--translateX", `100%`);
-
-    // Odstraň listener, protože už nechceme, aby se vracel zpět
-    window.removeEventListener("scroll", arguments.callee);
-  } else {
-    // překryv je na začátku (pokud chceš, aby byl znovu překrytý při scrollu nahoru, jinak tento blok můžeš vynechat)
-    aboutFoto.style.setProperty("--translateX", `0%`);
-  }
-});
-
-
-
-
-
-
-
-function toggleInfo(button) {
-  const card = button.closest('.projekt-card');
-  const infoBlock = card.nextElementSibling; // ⬅️ vezmeme až ten blok POD kartou
-
-  if (!infoBlock.classList.contains('projekt-info')) return;
-
-  const isVisible = infoBlock.classList.contains('show');
-
-  // Skryjeme všechny ostatní otevřené bloky
-  document.querySelectorAll('.projekt-info.show').forEach(el => {
-    el.classList.remove('show');
-    el.previousElementSibling.querySelector('.toggle-info-btn').textContent = 'Více info';
-  });
-
-  // Přepneme aktuální
-  if (!isVisible) {
-    infoBlock.classList.add('show');
-    button.textContent = 'Méně info';
-  } else {
-    infoBlock.classList.remove('show');
-    button.textContent = 'Více info';
-  }
-}
